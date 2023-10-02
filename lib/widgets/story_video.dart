@@ -58,6 +58,7 @@ class StoryVideo extends StatefulWidget {
       VideoLoader(url, requestHeaders: requestHeaders),
       storyController: controller,
       key: key,
+      videoUrlForWeb: kIsWeb ? url : null,
     );
   }
 

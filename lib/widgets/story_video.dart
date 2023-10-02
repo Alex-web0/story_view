@@ -101,8 +101,12 @@ class StoryVideoState extends State<StoryVideo> {
     widget.storyController!.pause();
 
     kIsWeb
-        ? handleControllerCreation(
-            VideoPlayerController.network(widget.videoUrlForWeb!))
+        ? () {
+            widget.videoLoader.state = LoadState.success;
+            handleControllerCreation(
+                VideoPlayerController.network(widget.videoUrlForWeb!));
+            setState(() {});
+          }.call()
         : widget.videoLoader.loadVideo(() {
             if (widget.videoLoader.state == LoadState.success) {
               handleControllerCreation(

@@ -71,15 +71,8 @@ class StoryVideoState extends State<StoryVideo> {
 
   VideoPlayerController? playerController;
 
-  @override
-  void initState() {
-    super.initState();
-
-    widget.storyController!.pause();
-
-    widget.videoLoader.loadVideo(() {
-      if (widget.videoLoader.state == LoadState.success) {
-        this.playerController =
+void handleControllerCreation () {
+          this.playerController =
             VideoPlayerController.file(widget.videoLoader.videoFile!);
 
         playerController!.initialize().then((v) {
@@ -97,6 +90,17 @@ class StoryVideoState extends State<StoryVideo> {
             }
           });
         }
+}
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget.storyController!.pause();
+
+    kIsWeb  widget.videoLoader.loadVideo(() {
+      if (widget.videoLoader.state == LoadState.success) {
+handleControllerCreation();
       } else {
         setState(() {});
       }
